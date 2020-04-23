@@ -75,8 +75,8 @@ RUN cd elfutils-$ELFUTILS_VERSION && \
 
 RUN mkdir -p bcc/build && cd bcc/build && \
     cmake .. -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
-             -DCMAKE_C_FLAGS="-I/build/usr/include" \
-             -DCMAKE_CXX_FLAGS="-I/build/usr/include" \
+             -DCMAKE_C_FLAGS="-I/build/usr/include -D__always_inline=__inline__" \
+             -DCMAKE_CXX_FLAGS="-I/build/usr/include -D__always_inline=__inline__" \
              -DCMAKE_INSTALL_PREFIX=/usr \
              -DLUAJIT_INCLUDE_DIR=/usr/include/luajit-2.1 && \
     make && \
