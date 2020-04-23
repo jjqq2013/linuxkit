@@ -1,5 +1,4 @@
-ARG IMAGE
-FROM ${IMAGE} as ksrc
+FROM linuxkit/kernel:4.19.76 as ksrc
 
 FROM linuxkit/alpine:bc528cf9d4065d2e09aa44ff76909b94cfe8d867 AS build
 RUN apk update && apk upgrade -a && \
