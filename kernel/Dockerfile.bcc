@@ -121,4 +121,4 @@ COPY --from=build /out /
 
 WORKDIR /usr/share/bcc/tools
 ENV PATH=$PATH:/usr/share/bcc/tools
-ENTRYPOINT ["/bin/sh", "-c", "set -e; if ! ls /sys/kernel/debug/tracing >/dev/null; then mount -t debugfs debugfs /sys/kernel/debug; fi; exec \"$0\" \"$@\""]CMD ["/bin/sh", "-l"]
+ENTRYPOINT ["/bin/sh", "-c", "set -e; if ! ls /sys/kernel/debug/tracing >/dev/null; then if ! mount -t debugfs debugfs /sys/kernel/debug; then echo -e 'please run:\n  docker run -it --privileged --net=host --ipc=host --pid=host --uts=host --userns=host \\\n    -v /dev:/dev -v /lib/modules:/lib/modules  -v /sys:/sys \\\n    <THIS_IMAGE_NAME> [COMMAND [ARGS...]]' >&2; exit 1; fi; fi; exec \"$0\" \"$@\""]CMD ["/bin/sh", "-l"]
